@@ -30,9 +30,11 @@
 		tr:nth-child(even) {
 			background-color: #dddddd;
 		}
+
 		@media print{
-			@page :right{
-			margin-top: 0 !important;
+			@page :first{
+			margin-top: {{$clinic->margintopfirst}}cm !important;
+			margin-bottom: {{$clinic->marginbottomfirst}}cm !important;
 		}
 		}
 		

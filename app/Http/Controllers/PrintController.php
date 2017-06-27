@@ -48,20 +48,26 @@ class PrintController extends Controller
     {
         //dd($request);
         $this->validate($request,[
+            'margintopfirst'=>'required|integer|between:0,10',
+            'marginbottomfirst'=>'required|integer|between:0,10',
             'margin_top'=>'required|integer|between:0,10',
-            'margin_bottom'=>'required|digits_between:0,10',
+            'margin_bottom'=>'required|integer|between:0,10',
             // 'margin_right'=>'required|integer',
             // 'margin_left'=>'required|integer',
             'pageformat'=>'required'
             ],[
+            'margintopfirst.required'=>'Top margin value cannot be blank',
+            'margintopfirst.integer'=>'Value should be an integer between 0 and 10',
+            'margintopfirst.between'=>'Value should be an integer between 0 and 10',
+            'marginbottomfirst.required'=>'Top margin value cannot be blank',
+            'marginbottomfirst.integer'=>'Value should be an integer between 0 and 10',
+            'marginbottomfirst.between'=>'Value should be an integer between 0 and 10',
             'margin_top.required'=>'Top margin value cannot be blank',
-            'margin_top.digits_between'=>'Value should be an integer between 0 and 10',
+            'margin_top.integer'=>'Value should be an integer between 0 and 10',
+            'margin_top.between'=>'Value should be an integer between 0 and 10',
             'margin_bottom.required'=>'Bottom margin value cannot be blank',
-            'margin_bottom.digits_between'=>'Value should be an integer between 0 and 10'
-            // 'margin_right.required'=>'Right margin value cannot be blank',
-            // 'margin_right.digits_between'=>'Value should be an integer between 0 and 255',
-            // 'margin_left.required'=>'Left margin value cannot be blank',
-            // 'margin_left.digits_between'=>'Value should be an integer between 0 and 255'
+            'margin_bottom.integer'=>'Value should be an integer between 0 and 10',
+            'margin_bottom.between'=>'Value should be an integer between 0 and 10'
             ]);
 
         $clinic = Clinic::where(['cliniccode'=>Session::get('cliniccode')])->first();
@@ -70,6 +76,8 @@ class PrintController extends Controller
        
         $clinic->margin_top = $request->margin_top;
         $clinic->margin_bottom = $request->margin_bottom;
+        $clinic->margintopfirst = $request->margintopfirst;
+        $clinic->marginbottomfirst = $request->marginbottomfirst;
         // $clinic->margin_left = $request->margin_left;
         // $clinic->margin_right = $request->margin_right;
         $clinic->pageformat = $request->pageformat;
@@ -86,7 +94,7 @@ class PrintController extends Controller
     public function printVisit($id){
         $clinic = Clinic::where(['cliniccode'=>Session::get('cliniccode')])->first();
         $visit = Visit::find($id);
-        $pdf = PDF::loadView('print.visit',['visit'=>$visit],[],[
+        $pdf = PDF::loadView('print.visit',['visit'=>$visit,'clinic'=>$clinic],[],[
             'watermark'=> 'Dilip Pareba',
             'title'=> 'Laravel mPDF',
             'show_watermark'=> false,

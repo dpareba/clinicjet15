@@ -31,6 +31,8 @@ class CreateClinicsTable extends Migration
             $table->string('email');
             $table->string('website');
             $table->smallInteger('cliniccode')->unsigned();
+            $table->tinyInteger('margintopfirst')->default(1)->unsigned();
+            $table->tinyInteger('marginbottomfirst')->default(1)->unsigned();
             $table->tinyInteger('margin_top')->default(1)->unsigned();
             $table->tinyInteger('margin_bottom')->default(1)->unsigned();
             $table->tinyInteger('margin_right')->default(1)->unsigned();

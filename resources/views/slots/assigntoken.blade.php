@@ -85,6 +85,7 @@ Assign Token to Patients
 									<!-- /.input group -->
 								</div>
 							</div>
+							
 						</div>
 						{{-- .row --}}
 						<div class="row">

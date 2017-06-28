@@ -17,6 +17,15 @@ class CreateSlotsTable extends Migration
             $table->increments('id');
             $table->timestamp('slotdate');
             $table->integer('token')->default(0);
+            $table->string('systolic')->nullable();
+            $table->string('diastolic')->nullable();
+            $table->string('randombs')->nullable();
+            $table->string('pulse')->nullable();
+            $table->string('resprate')->nullable();
+            $table->string('spo')->nullable();
+            $table->string('height')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('bmi')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('patient_id')->unsigned();
